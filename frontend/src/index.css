@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------
+   🌌 GLOBAL STYLES
+--------------------------------*/
+*:root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: linear-gradient(135deg, #e9e2e2 0%, #2d456b 100%);
+  color: lch(4.49% 5.84 226.13);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ------------------------------
+   🌿 CUSTOM SCROLLBAR
+--------------------------------*/
+::-webkit-scrollbar {
+  inline-size: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #7598cf;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a70d34;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #da2bae;
+}
+
+/* ------------------------------
+   ✨ TEXT & VISUAL EFFECTS
+--------------------------------*/
+.gradient-text {
+  background: linear-gradient(135deg, #e7bee9 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(16, 26, 49, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ------------------------------
+   🎞️ ANIMATIONS
+--------------------------------*/
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
