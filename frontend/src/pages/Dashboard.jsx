@@ -1,5 +1,10 @@
 import { useState, useEffect, useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
+import { Card, CardContent, CardHeader, CardTitle } from "../../component/ui/card"
+import { Input } from "../../component/ui/input"
+import { Button } from "../../component/ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../component/ui/select"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../component/ui/table"
 
 export default function Dashboard() {
   const { token } = useContext(AuthContext)
@@ -72,93 +77,119 @@ export default function Dashboard() {
         {/* Analytics Cards */}
         {analytics && (
           <div className="grid md:grid-cols-4 gap-6 mb-12">
-            <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-              <p className="text-slate-400 text-sm mb-2">Total Consumption</p>
-              <p className="text-3xl font-bold text-emerald-400">{analytics.totalConsumption.toFixed(2)} kWh</p>
-            </div>
-            <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-              <p className="text-slate-400 text-sm mb-2">Total Cost</p>
-              <p className="text-3xl font-bold text-emerald-400">₦{analytics.totalCost.toFixed(2)}</p>
-            </div>
-            <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-              <p className="text-slate-400 text-sm mb-2">Average Consumption</p>
-              <p className="text-3xl font-bold text-emerald-400">{analytics.avgConsumption.toFixed(2)} kWh</p>
-            </div>
-            <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-              <p className="text-slate-400 text-sm mb-2">Total Readings</p>
-              <p className="text-3xl font-bold text-emerald-400">{analytics.readingCount}</p>
-            </div>
+            <Card className="bg-slate-900 border-emerald-500/20">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-slate-400">Total Consumption</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-emerald-400">{analytics.totalConsumption.toFixed(2)} kWh</div>
+              </CardContent>
+            </Card>
+            <Card className="bg-slate-900 border-emerald-500/20">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-slate-400">Total Cost</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-emerald-400">₦{analytics.totalCost.toFixed(2)}</div>
+              </CardContent>
+            </Card>
+            <Card className="bg-slate-900 border-emerald-500/20">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-slate-400">Average Consumption</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-emerald-400">{analytics.avgConsumption.toFixed(2)} kWh</div>
+              </CardContent>
+            </Card>
+            <Card className="bg-slate-900 border-emerald-500/20">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-slate-400">Total Readings</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-emerald-400">{analytics.readingCount}</div>
+              </CardContent>
+            </Card>
           </div>
         )}
 
         {/* Add Reading Form */}
-        <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-8 mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6">Add Energy Reading</h2>
-          <form onSubmit={handleAddReading} className="grid md:grid-cols-4 gap-4">
-            <input
-              type="number"
-              step="0.01"
-              placeholder="Consumption (kWh)"
-              value={newReading.consumption}
-              onChange={(e) => setNewReading({ ...newReading, consumption: e.target.value })}
-              className="px-4 py-2 bg-slate-800 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500"
-              required
-            />
-            <input
-              type="number"
-              step="0.01"
-              placeholder="Cost (₦)"
-              value={newReading.cost}
-              onChange={(e) => setNewReading({ ...newReading, cost: e.target.value })}
-              className="px-4 py-2 bg-slate-800 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500"
-              required
-            />
-            <select
-              value={newReading.source}
-              onChange={(e) => setNewReading({ ...newReading, source: e.target.value })}
-              className="px-4 py-2 bg-slate-800 border border-emerald-500/20 rounded-lg text-white focus:outline-none focus:border-emerald-500"
-            >
-              <option value="grid">Grid</option>
-              <option value="solar">Solar</option>
-              <option value="generator">Generator</option>
-              <option value="biogas">Biogas</option>
-              <option value="hybrid">Hybrid</option>
-            </select>
-            <button
-              type="submit"
-              className="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold transition"
-            >
-              Add Reading
-            </button>
-          </form>
-        </div>
+        <Card className="bg-slate-900 border-emerald-500/20 mb-12">
+          <CardHeader>
+            <CardTitle className="text-2xl text-white">Add Energy Reading</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleAddReading} className="grid md:grid-cols-4 gap-4">
+              <Input
+                type="number"
+                step="0.01"
+                placeholder="Consumption (kWh)"
+                value={newReading.consumption}
+                onChange={(e) => setNewReading({ ...newReading, consumption: e.target.value })}
+                className="bg-slate-800 border-emerald-500/20 text-white focus-visible:ring-emerald-500"
+                required
+              />
+              <Input
+                type="number"
+                step="0.01"
+                placeholder="Cost (₦)"
+                value={newReading.cost}
+                onChange={(e) => setNewReading({ ...newReading, cost: e.target.value })}
+                className="bg-slate-800 border-emerald-500/20 text-white focus-visible:ring-emerald-500"
+                required
+              />
+              <Select
+                value={newReading.source}
+                onValueChange={(value) => setNewReading({ ...newReading, source: value })}
+              >
+                <SelectTrigger className="bg-slate-800 border-emerald-500/20 text-white focus:ring-emerald-500">
+                  <SelectValue placeholder="Select Source" />
+                </SelectTrigger>
+                <SelectContent className="bg-slate-800 border-emerald-500/20 text-white">
+                  <SelectItem value="grid">Grid</SelectItem>
+                  <SelectItem value="solar">Solar</SelectItem>
+                  <SelectItem value="generator">Generator</SelectItem>
+                  <SelectItem value="biogas">Biogas</SelectItem>
+                  <SelectItem value="hybrid">Hybrid</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button
+                type="submit"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+              >
+                Add Reading
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
         {/* Recent Readings */}
-        <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">Recent Readings</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-emerald-500/20">
-                  <th className="pb-4 text-slate-400">Date</th>
-                  <th className="pb-4 text-slate-400">Consumption</th>
-                  <th className="pb-4 text-slate-400">Cost</th>
-                  <th className="pb-4 text-slate-400">Source</th>
-                </tr>
-              </thead>
-              <tbody>
+        <Card className="bg-slate-900 border-emerald-500/20">
+          <CardHeader>
+            <CardTitle className="text-2xl text-white">Recent Readings</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow className="border-emerald-500/20 hover:bg-transparent">
+                  <TableHead className="text-slate-400">Date</TableHead>
+                  <TableHead className="text-slate-400">Consumption</TableHead>
+                  <TableHead className="text-slate-400">Cost</TableHead>
+                  <TableHead className="text-slate-400">Source</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {readings.slice(0, 10).map((reading) => (
-                  <tr key={reading._id} className="border-b border-emerald-500/10 hover:bg-slate-800/50">
-                    <td className="py-4 text-slate-300">{new Date(reading.timestamp).toLocaleDateString()}</td>
-                    <td className="py-4 text-emerald-400">{reading.consumption} kWh</td>
-                    <td className="py-4 text-emerald-400">₦{reading.cost}</td>
-                    <td className="py-4 text-slate-300 capitalize">{reading.source}</td>
-                  </tr>
+                  <TableRow key={reading._id} className="border-emerald-500/10 hover:bg-slate-800/50">
+                    <TableCell className="text-slate-300">{new Date(reading.timestamp).toLocaleDateString()}</TableCell>
+                    <TableCell className="text-emerald-400">{reading.consumption} kWh</TableCell>
+                    <TableCell className="text-emerald-400">₦{reading.cost}</TableCell>
+                    <TableCell className="text-slate-300 capitalize">{reading.source}</TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

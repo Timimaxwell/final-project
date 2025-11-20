@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import { AuthContext } from "../context/AuthContext"
+import { Card, CardContent, CardHeader, CardTitle } from "../../component/ui/card"
 
 export default function AdminDashboard() {
   const { user } = useContext(AuthContext)
@@ -37,28 +38,48 @@ export default function AdminDashboard() {
         <h1 className="text-4xl font-bold text-white mb-12">Admin Dashboard</h1>
 
         <div className="grid md:grid-cols-4 gap-6 mb-12">
-          <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-            <p className="text-slate-400 text-sm mb-2">Total Users</p>
-            <p className="text-3xl font-bold text-emerald-400">{stats.totalUsers}</p>
-          </div>
-          <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-            <p className="text-slate-400 text-sm mb-2">Providers</p>
-            <p className="text-3xl font-bold text-emerald-400">{stats.totalProviders}</p>
-          </div>
-          <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-            <p className="text-slate-400 text-sm mb-2">Job Listings</p>
-            <p className="text-3xl font-bold text-emerald-400">{stats.totalJobs}</p>
-          </div>
-          <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-6">
-            <p className="text-slate-400 text-sm mb-2">Active Subscriptions</p>
-            <p className="text-3xl font-bold text-emerald-400">{stats.activeSubscriptions}</p>
-          </div>
+          <Card className="bg-slate-900 border-emerald-500/20">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">Total Users</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-emerald-400">{stats.totalUsers}</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-slate-900 border-emerald-500/20">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">Providers</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-emerald-400">{stats.totalProviders}</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-slate-900 border-emerald-500/20">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">Job Listings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-emerald-400">{stats.totalJobs}</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-slate-900 border-emerald-500/20">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">Active Subscriptions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-emerald-400">{stats.activeSubscriptions}</div>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="bg-slate-900 border border-emerald-500/20 rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-white mb-6">System Overview</h2>
-          <p className="text-slate-300">Admin features and management tools coming soon...</p>
-        </div>
+        <Card className="bg-slate-900 border-emerald-500/20">
+          <CardHeader>
+            <CardTitle className="text-2xl text-white">System Overview</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-slate-300">Admin features and management tools coming soon...</p>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

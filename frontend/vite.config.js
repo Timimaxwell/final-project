@@ -24,7 +24,7 @@ export default defineConfig({
     },
   },
   css: {
-    postcss: './postcss.config.js', // Ensures Tailwind PostCSS config is applied
+    postcss: './postcss.config.cjs', // Ensures Tailwind PostCSS config is applied
   },
 });
 
