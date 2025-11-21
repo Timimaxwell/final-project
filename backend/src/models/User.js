@@ -1,43 +1,32 @@
-const mongoose = require("mongoose")
-const bcrypt = require("bcryptjs")
+// ...existing code...
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs') // use bcryptjs to avoid native build issues
 
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true, lowercase: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true },
-    role: {
-      type: String,
-      enum: ["user", "provider", "admin"],
-      default: "user",
-    },
-    profileImage: String,
-    phone: String,
-    address: String,
-    energyProvider: String,
   },
   { timestamps: true }
 )
 
-// Optimized & compact indexes
-userSchema.index({ email: 1, role: 1 }) // fast login & role-based lookups
-userSchema.index({ name: "text", email: "text", address: "text" }) // quick text search
-
-// Hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next()
+// Hash password before save
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next()
   try {
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
-    next()
+    return next()
   } catch (err) {
-    next(err)
+    return next(err)
   }
 })
 
-// Compare password method
+// Instance method to compare password
 userSchema.methods.comparePassword = function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password)
 }
 
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model('User', userSchema)
+// ...existing code...

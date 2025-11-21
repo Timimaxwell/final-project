@@ -1,30 +1,29 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-
-/**
- * Vite configuration for React + Tailwind CSS
- * 
- * Tailwind is integrated via PostCSS, which Vite automatically picks up
- * from tailwind.config.js and postcss.config.js
- */
+import path from 'path';
 
 export default defineConfig({
-  plugins: [
-    react(), // Enables React fast refresh and JSX support
-  ],
-  server: {
-    port: 5173,      // Default Vite dev server port
-    open: true,      // Automatically opens the browser
-  },
+  plugins: [react()],
   resolve: {
     alias: {
-      // Optional: set up path aliases for cleaner imports
-      '@': '/src',
-    },
+      // map "@" to frontend/src
+      '@': path.resolve(__dirname, 'src')
+    }
   },
-  css: {
-    postcss: './postcss.config.cjs', // Ensures Tailwind PostCSS config is applied
-  },
+  server: {
+    port: 5173,
+    proxy: {
+      // forward API requests to backend
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/test': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
+  }
 });
-
