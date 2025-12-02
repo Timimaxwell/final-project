@@ -1,5 +1,7 @@
 # SEMS Backend
 
+https://final-project-5zbk.onrender.com
+
 Smart Energy Management System Backend API built with Express.js and MongoDB.
 
 ## Setup
